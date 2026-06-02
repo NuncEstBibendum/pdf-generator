@@ -31,10 +31,6 @@ const InvoiceBuyer = ({ buyer }: { buyer: Company }) => (
 );
 
 const InvoiceTableRow = ({ line }: { line: InvoiceLine }) => {
-  if (line.quantity === 0) {
-    return null;
-  }
-
   const totalHT = line.quantity * line.unitPrice;
 
   return (
@@ -52,26 +48,34 @@ const InvoiceTableRow = ({ line }: { line: InvoiceLine }) => {
   );
 };
 
-const InvoiceTable = ({ lines }: { lines: InvoiceLine[] }) => (
-  <table
-    style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '40px' }}
-  >
-    <thead>
-      <tr style={{ backgroundColor: '#f5f5f5' }}>
-        <th style={{ textAlign: 'left', padding: '8px' }}>Description</th>
-        <th style={{ textAlign: 'right', padding: '8px' }}>Qté</th>
-        <th style={{ textAlign: 'right', padding: '8px' }}>PU HT</th>
-        <th style={{ textAlign: 'right', padding: '8px' }}>TVA</th>
-        <th style={{ textAlign: 'right', padding: '8px' }}>Total HT</th>
-      </tr>
-    </thead>
-    <tbody>
-      {lines.map((line, index) => (
-        <InvoiceTableRow key={index} line={line} />
-      ))}
-    </tbody>
-  </table>
-);
+const InvoiceTable = ({ lines }: { lines: InvoiceLine[] }) => {
+  const filteredLines = lines.filter((line) => line.quantity > 0);
+
+  return (
+    <table
+      style={{
+        width: '100%',
+        borderCollapse: 'collapse',
+        marginBottom: '40px',
+      }}
+    >
+      <thead>
+        <tr style={{ backgroundColor: '#f5f5f5' }}>
+          <th style={{ textAlign: 'left', padding: '8px' }}>Description</th>
+          <th style={{ textAlign: 'right', padding: '8px' }}>Qté</th>
+          <th style={{ textAlign: 'right', padding: '8px' }}>PU HT</th>
+          <th style={{ textAlign: 'right', padding: '8px' }}>TVA</th>
+          <th style={{ textAlign: 'right', padding: '8px' }}>Total HT</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredLines.map((line, index) => (
+          <InvoiceTableRow key={index} line={line} />
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
 const InvoiceVatSummary = ({
   vatSummaries,
