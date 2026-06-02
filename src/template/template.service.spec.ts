@@ -53,8 +53,6 @@ describe('TemplateService', () => {
     it("doesn't render lines when the quantity is 0", () => {
       const html = service.renderInvoice(baseInvoice);
 
-      console.log(html);
-
       expect(html).toContain('Pose de carrelage');
       expect(html).toContain('Fourniture matériaux');
       expect(html).not.toContain('Ligne à ne pas afficher');
