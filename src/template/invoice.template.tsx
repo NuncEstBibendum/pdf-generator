@@ -31,6 +31,10 @@ const InvoiceBuyer = ({ buyer }: { buyer: Company }) => (
 );
 
 const InvoiceTableRow = ({ line }: { line: InvoiceLine }) => {
+  if (line.quantity === 0) {
+    return null;
+  }
+
   const totalHT = line.quantity * line.unitPrice;
 
   return (
