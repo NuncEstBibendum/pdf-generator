@@ -34,6 +34,44 @@
 
 ## Architecture macro
 
+```mermaid
+sequenceDiagram
+    actor User
+    participant Front
+    participant API
+    participant SQS
+    participant Worker
+    participant S3
+    participant Mail
+
+    User->>Front: Clic "Générer"
+    Front->>API: POST /invoice/:id/generate
+    API->>API: Crée enregistrement PENDING en base
+    API->>SQS: Push message { invoiceId }
+    API-->>Front: 202 Accepted
+    Front-->>User: "Votre document est en cours de génération"
+
+    loop Polling
+        Worker->>SQS: Écoute la queue
+    end
+
+    SQS-->>Worker: Message { invoiceId }
+    Worker->>API: Vérifie que le statut est toujours PENDING
+    Worker->>Worker: Récupère données facture en base, Génère HTML via TemplateService, Génère PDF via Playwright
+    Worker->>S3: Stocke le PDF
+    Worker->>API: Met à jour statut GENERATED
+    Worker->>Mail: Envoie mail + PDF en pièce jointe
+    Worker->>API: Met à jour statut SENT
+
+    alt Échec après N retries
+        SQS->>SQS: Message → Dead Letter Queue
+        SQS-->>Worker: Alerte CloudWatch
+        Worker->>Mail: Notifie l'utilisateur de l'échec
+    end
+```
+
+
+
 ### Flux de bout en bout
 
 1. Avant tout clic, le front appelle l'API `POST /invoice/save` pour sauvegarder toutes les informations de la facture en base après chaque modification des éléments de la facture.
