@@ -1,5 +1,6 @@
 import React from 'react';
 import { Company, Invoice, InvoiceLine, VatSummary } from './invoice.types';
+import { formatVatRate } from './formatVatRate';
 
 const InvoiceHeader = ({ invoice }: { invoice: Invoice }) => (
   <div
@@ -40,9 +41,7 @@ const InvoiceTableRow = ({ line }: { line: InvoiceLine }) => {
       <td style={{ textAlign: 'right' }}>
         {(line.unitPrice / 100).toFixed(2)} €
       </td>
-      <td style={{ textAlign: 'right' }}>
-        {(line.vatRate * 100).toFixed(0)} %
-      </td>
+      <td style={{ textAlign: 'right' }}>{formatVatRate(line.vatRate)} %</td>
       <td style={{ textAlign: 'right' }}>{(totalHT / 100).toFixed(2)} €</td>
     </tr>
   );
@@ -84,15 +83,14 @@ const InvoiceVatSummary = ({
 }) => (
   <div style={{ marginBottom: '16px' }}>
     {vatSummaries.map((vat, index) => (
-      <div
-        key={index}
-        style={{ display: 'flex', justifyContent: 'space-between' }}
-      >
-        <span>
-          TVA {(vat.rate * 100).toFixed(0)} % (base :{' '}
+      <div key={index} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <span style={{ marginRight: '16px' }}>
+          TVA {formatVatRate(vat.rate)} % (base :{' '}
           {(vat.baseAmount / 100).toFixed(2)} €)
         </span>
-        <span>{(vat.vatAmount / 100).toFixed(2)} €</span>
+        <span style={{ marginRight: '16px' }}>
+          {(vat.vatAmount / 100).toFixed(2)} €
+        </span>
       </div>
     ))}
   </div>
@@ -101,18 +99,18 @@ const InvoiceVatSummary = ({
 const InvoiceTotals = ({ invoice }: { invoice: Invoice }) => (
   <div style={{ textAlign: 'right', marginBottom: '40px' }}>
     <InvoiceVatSummary vatSummaries={invoice.vatSummaries} />
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <span>Total HT</span>
+    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <span style={{ marginRight: '16px' }}>Total HT</span>
       <span>{(invoice.totalExcludingTax / 100).toFixed(2)} €</span>
     </div>
     <div
       style={{
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         fontWeight: 'bold',
       }}
     >
-      <span>Total TTC</span>
+      <span style={{ marginRight: '16px' }}>Total TTC</span>
       <span>{(invoice.totalIncludingTax / 100).toFixed(2)} €</span>
     </div>
   </div>

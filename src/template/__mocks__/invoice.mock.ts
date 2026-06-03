@@ -2,7 +2,7 @@ import { Invoice } from '../invoice.types';
 
 export const baseInvoice: Invoice = {
   number: 'FA-2026-001',
-  issueDate: new Date('2026-01-31'),
+  issueDate: new Date('2026-06-03'),
   seller: {
     name: 'Bâtiment Pro SAS',
     address: '12 rue de la Paix, 75001 Paris',
@@ -27,6 +27,12 @@ export const baseInvoice: Invoice = {
       vatRate: 0.2,
     },
     {
+      description: "Main d'oeuvre",
+      quantity: 10,
+      unitPrice: 10000,
+      vatRate: 0.055,
+    },
+    {
       description: 'Ligne à ne pas afficher',
       quantity: 0,
       unitPrice: 0,
@@ -34,9 +40,10 @@ export const baseInvoice: Invoice = {
     },
   ],
   vatSummaries: [
+    { rate: 0.055, baseAmount: 100000, vatAmount: 5500 },
     { rate: 0.1, baseAmount: 150000, vatAmount: 15000 },
     { rate: 0.2, baseAmount: 100000, vatAmount: 20000 },
   ],
-  totalExcludingTax: 250000,
-  totalIncludingTax: 285000,
+  totalExcludingTax: 350000,
+  totalIncludingTax: 395000,
 };
