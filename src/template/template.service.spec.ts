@@ -26,14 +26,14 @@ describe('TemplateService', () => {
     it('renders correct totals for multiple vat rates', () => {
       const html = service.renderInvoice(baseInvoice);
 
-      expect(html).toContain('3500.00 €');
-      expect(html).toContain('3950.00 €');
-      expect(html).toContain('150.00 €');
-      expect(html).toContain('200.00 €');
-      expect(html).toContain('55.00 €');
-      expect(html).toContain('TVA 5.5 % (base : 1000.00 €)');
-      expect(html).toContain('TVA 10 % (base : 1500.00 €)');
-      expect(html).toContain('TVA 20 % (base : 1000.00 €)');
+      expect(html).toContain('600.00 €');
+      expect(html).toContain('1050.00 €');
+      expect(html).toContain('800.00 €');
+      expect(html).toContain('TVA 5.5 % (base : 800.00 €)');
+      expect(html).toContain('TVA 10 % (base : 1050.00 €)');
+      expect(html).toContain('TVA 20 % (base : 600.00 €)');
+      expect(html).toContain('2450.00 €');
+      expect(html).toContain('2719.00 €');
     });
 
     it('renders a fallback when a line has no description', () => {

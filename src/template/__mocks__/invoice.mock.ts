@@ -16,19 +16,19 @@ export const baseInvoice: Invoice = {
   lines: [
     {
       description: 'Pose de carrelage',
-      quantity: 10,
+      quantity: 7,
       unitPrice: 15000,
       vatRate: 0.1,
     },
     {
       description: 'Fourniture matériaux',
-      quantity: 5,
+      quantity: 3,
       unitPrice: 20000,
       vatRate: 0.2,
     },
     {
       description: "Main d'oeuvre",
-      quantity: 10,
+      quantity: 8,
       unitPrice: 10000,
       vatRate: 0.055,
     },
@@ -40,10 +40,10 @@ export const baseInvoice: Invoice = {
     },
   ],
   vatSummaries: [
-    { rate: 0.055, baseAmount: 100000, vatAmount: 5500 },
-    { rate: 0.1, baseAmount: 150000, vatAmount: 15000 },
-    { rate: 0.2, baseAmount: 100000, vatAmount: 20000 },
+    { rate: 0.1, baseAmount: 105000, vatAmount: 10500 },
+    { rate: 0.2, baseAmount: 60000, vatAmount: 12000 },
+    { rate: 0.055, baseAmount: 80000, vatAmount: 4400 },
   ],
-  totalExcludingTax: 350000,
-  totalIncludingTax: 395000,
+  totalExcludingTax: 245000,
+  totalIncludingTax: 271900,
 };
