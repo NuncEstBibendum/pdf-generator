@@ -2,7 +2,7 @@ import { Invoice } from '../invoice.types';
 
 export const baseInvoice: Invoice = {
   number: 'FA-2026-001',
-  issueDate: new Date('2026-06-03'),
+  validatedAt: new Date('2026-06-03'),
   seller: {
     name: 'Bâtiment Pro SAS',
     address: '12 rue de la Paix, 75001 Paris',

@@ -19,7 +19,7 @@ export interface VatSummary {
 
 export interface Invoice {
   number: string;
-  issueDate: Date;
+  validatedAt: Date;
   seller: Company;
   buyer: Company;
   lines: InvoiceLine[];

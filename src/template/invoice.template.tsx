@@ -17,7 +17,7 @@ const InvoiceHeader = ({ invoice }: { invoice: Invoice }) => (
     </div>
     <div style={{ textAlign: 'right' }}>
       <h1>FACTURE #{invoice.number}</h1>
-      <p>Date : {invoice.issueDate.toLocaleDateString('fr-FR')}</p>
+      <p>Date : {invoice.validatedAt.toLocaleDateString('fr-FR')}</p>
     </div>
   </div>
 );
